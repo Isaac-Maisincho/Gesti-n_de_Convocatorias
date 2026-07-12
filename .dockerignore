@@ -1,0 +1,16 @@
+# Folders
+node_modules
+.next
+out
+build
+.git
+.github
+
+# Files
+Dockerfile
+docker-compose.yml
+.dockerignore
+npm-debug.log
+README.md
+CLAUDE.md
+AGENTS.md
