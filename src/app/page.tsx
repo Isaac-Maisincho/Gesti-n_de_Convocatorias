@@ -140,11 +140,29 @@ export default function Dashboard() {
       const resStats = await fetch('/api/estadisticas/presupuesto-general');
       const dataStats = await resStats.json();
       if (dataStats.exito) {
+        const estadisticas = dataStats.datos ?? {};
         setStats({
-          totalBudget: dataStats.datos.sumatoriaGlobal,
-          averageBudget: dataStats.datos.promedioPorNota,
-          totalNotas: dataStats.datos.totalNotas,
-          byStatus: dataStats.datos.distribucionPorEstado
+          totalBudget: Number(
+            estadisticas.sumatoriaGlobal ?? estadisticas.presupuestoGeneral ?? 0
+          ),
+          averageBudget: Number(
+            estadisticas.promedioPorNota ?? estadisticas.promedioPresupuestoPorNota ?? 0
+          ),
+          totalNotas: Number(estadisticas.totalNotas ?? 0),
+          byStatus: {
+            registrada: Number(
+              estadisticas.distribucionPorEstado?.registrada ?? estadisticas.notasPorEstado?.registrada ?? 0
+            ),
+            'en revisión': Number(
+              estadisticas.distribucionPorEstado?.['en revisión'] ?? estadisticas.notasPorEstado?.['en revisión'] ?? 0
+            ),
+            aprobada: Number(
+              estadisticas.distribucionPorEstado?.aprobada ?? estadisticas.notasPorEstado?.aprobada ?? 0
+            ),
+            rechazada: Number(
+              estadisticas.distribucionPorEstado?.rechazada ?? estadisticas.notasPorEstado?.rechazada ?? 0
+            ),
+          }
         });
       }
 
@@ -175,8 +193,15 @@ export default function Dashboard() {
       const resNotes = await fetch(`/api/notas?pagina=${currentPage}&limite=5`);
       const dataNotes = await resNotes.json();
       if (dataNotes.exito) {
-        let list: NotaConceptual[] = dataNotes.datos || [];
-        
+        const datosRespuesta = dataNotes.datos;
+        const listaBase = Array.isArray(datosRespuesta)
+          ? datosRespuesta
+          : (datosRespuesta && typeof datosRespuesta === 'object' && 'datos' in datosRespuesta
+              ? (datosRespuesta as { datos?: NotaConceptual[] }).datos ?? []
+              : []);
+
+        let list: NotaConceptual[] = Array.isArray(listaBase) ? listaBase : [];
+
         // Frontend search & filter fallback since basic API doesn't support them fully
         if (searchQuery.trim() !== '') {
           const q = searchQuery.toLowerCase();
@@ -187,8 +212,13 @@ export default function Dashboard() {
         }
 
         setNotas(list);
-        if (dataNotes.paginacion) {
-          setPaginacion(dataNotes.paginacion);
+
+        const paginacionRespuesta = datosRespuesta && typeof datosRespuesta === 'object' && 'paginacion' in datosRespuesta
+          ? (datosRespuesta as { paginacion?: typeof paginacion }).paginacion
+          : dataNotes.paginacion;
+
+        if (paginacionRespuesta) {
+          setPaginacion(paginacionRespuesta);
         }
       }
     } catch (err) {
