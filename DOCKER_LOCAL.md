@@ -211,7 +211,8 @@ Express Server (index.ts)
 |----------|-------|----------|
 | NODE_ENV | production | docker-compose.yml |
 | PORT | 8080 | Dockerfile |
-| Container Port | 3000 | docker-compose.yml |
+| Host Port | 3001 | docker-compose.yml |
+| Container Port | 8080 | docker-compose.yml |
 
 ---
 
@@ -237,10 +238,9 @@ Express Server (index.ts)
 ## 📝 Troubleshooting
 
 ### Port 3000 already in use
-Edit `docker-compose.yml`:
-```yaml
-ports:
-  - "3001:8080"  # Use 3001 instead
+Run with a different host port:
+```bash
+LOCAL_PORT=3001 docker compose up --build
 ```
 
 ### Container won't start

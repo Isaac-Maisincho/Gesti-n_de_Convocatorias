@@ -136,6 +136,54 @@ app.patch('/api/notas/:codigo/estado', (req, res) => {
     }
 });
 // ============================================================
+// /api/notas/:codigo
+// ============================================================
+app.patch('/api/notas/:codigo', (req, res) => {
+    try {
+        const { codigo } = req.params;
+        const resultado = (0, notas_service_1.actualizarNotaParcial)(codigo, req.body);
+        if (!resultado.exito) {
+            return res.status(400).json(resultado);
+        }
+        res.status(200).json(resultado);
+    }
+    catch (err) {
+        res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
+    }
+});
+// ============================================================
+// /api/notas/:codigo/presupuesto
+// ============================================================
+app.post('/api/notas/:codigo/presupuesto', (req, res) => {
+    try {
+        const { codigo } = req.params;
+        const resultado = (0, notas_service_1.agregarItemPresupuesto)(codigo, req.body);
+        if (!resultado.exito) {
+            return res.status(400).json(resultado);
+        }
+        res.status(201).json(resultado);
+    }
+    catch (err) {
+        res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
+    }
+});
+// ============================================================
+// /api/notas/:codigo/cronograma
+// ============================================================
+app.post('/api/notas/:codigo/cronograma', (req, res) => {
+    try {
+        const { codigo } = req.params;
+        const resultado = (0, notas_service_1.agregarActividadCronograma)(codigo, req.body);
+        if (!resultado.exito) {
+            return res.status(400).json(resultado);
+        }
+        res.status(201).json(resultado);
+    }
+    catch (err) {
+        res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
+    }
+});
+// ============================================================
 // /api/notas/:codigo/presupuesto-total
 // ============================================================
 app.get('/api/notas/:codigo/presupuesto-total', (req, res) => {

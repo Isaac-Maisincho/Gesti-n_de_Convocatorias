@@ -1,40 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+# Sistema de Gestión de Convocatorias de Notas Conceptuales
 
-## Getting Started
+## Objetivo
+Este proyecto es un sistema sencillo en TypeScript para gestionar convocatorias de notas conceptuales. Permite crear y editar notas conceptuales, administrar presupuestos y cronogramas, y consultar el estado de las propuestas.
 
-First, run the development server:
+## Organización de carpetas
+- `src/`
+  - `index.ts` - servidor y rutas API.
+  - `data/` - archivos JSON con catálogos, departamentos/carreras y ubicaciones.
+  - `models/` - interfaces y funciones de negocio.
+  - `public/` - frontend estático:
+    - `app.ts` - lógica del cliente.
+    - `index.html` - UI principal.
+    - `styles.css` - estilos de la aplicación.
+  - `servicios/` - servicios del backend y validaciones.
+
+## Comandos
+- `npm install` - instala las dependencias.
+- `npm run build` - compila TypeScript y genera los archivos de salida.
+- `docker compose up --build` - construye y levanta el proyecto en contenedores.
+
+## Ejecución con Docker
+1. Asegúrate de estar en la carpeta del proyecto.
+2. Ejecuta:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker compose up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Abre el navegador en `http://localhost:8080`.
 
-You can start editing the page by modifying `app/route.ts`. The page auto-updates as you edit the file.
+4. Docker Hub
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## API Routes
-
-This directory contains example API routes for the headless API app.
-
-For more details, see [route.js file convention](https://nextjs.org/docs/app/api-reference/file-conventions/route).
+## Notas
+- El frontend se sirve como archivos estáticos desde `src/public/`.
+- La lógica de negocio y validaciones están en `src/servicios/`.

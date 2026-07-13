@@ -22,7 +22,7 @@ export interface EstadisticasPresupuesto {
  * Calcula la sumatoria de todos los presupuestos de las notas registradas
  * y estadísticas adicionales.
  */
-export function obtenerPresupuestoGeneral(): RespuestaAPI<EstadisticasPresupuesto> {
+export function obtenerPresupuestoGeneral(): RespuestaAPI<{ presupuestoTotal: number; totalNotas: number; promedioPorNota: number; conteosPorEstado: { registrada: number; 'en revisión': number; aprobada: number; rechazada: number; }; }> {
   const notas = obtenerNotas();
 
   const presupuestoGeneral = notas.reduce((suma, nota) => {
@@ -30,12 +30,12 @@ export function obtenerPresupuestoGeneral(): RespuestaAPI<EstadisticasPresupuest
   }, 0);
 
   const totalNotas = notas.length;
-  const promedioPresupuestoPorNota =
+  const promedioPorNota =
     totalNotas > 0
       ? Math.round((presupuestoGeneral / totalNotas) * 100) / 100
       : 0;
 
-  const notasPorEstado = {
+  const conteosPorEstado = {
     registrada: notas.filter((n) => n.estado === 'registrada').length,
     'en revisión': notas.filter((n) => n.estado === 'en revisión').length,
     aprobada: notas.filter((n) => n.estado === 'aprobada').length,
@@ -46,10 +46,10 @@ export function obtenerPresupuestoGeneral(): RespuestaAPI<EstadisticasPresupuest
     exito: true,
     mensaje: 'Estadísticas de presupuesto general calculadas exitosamente.',
     datos: {
-      presupuestoGeneral: Math.round(presupuestoGeneral * 100) / 100,
+      presupuestoTotal: Math.round(presupuestoGeneral * 100) / 100,
       totalNotas,
-      promedioPresupuestoPorNota,
-      notasPorEstado,
+      promedioPorNota,
+      conteosPorEstado,
     },
   };
 }

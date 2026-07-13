@@ -16,10 +16,10 @@ function obtenerPresupuestoGeneral() {
         return suma + (0, functions_1.calcularPresupuestoTotal)(nota.presupuesto.items);
     }, 0);
     const totalNotas = notas.length;
-    const promedioPresupuestoPorNota = totalNotas > 0
+    const promedioPorNota = totalNotas > 0
         ? Math.round((presupuestoGeneral / totalNotas) * 100) / 100
         : 0;
-    const notasPorEstado = {
+    const conteosPorEstado = {
         registrada: notas.filter((n) => n.estado === 'registrada').length,
         'en revisión': notas.filter((n) => n.estado === 'en revisión').length,
         aprobada: notas.filter((n) => n.estado === 'aprobada').length,
@@ -29,10 +29,10 @@ function obtenerPresupuestoGeneral() {
         exito: true,
         mensaje: 'Estadísticas de presupuesto general calculadas exitosamente.',
         datos: {
-            presupuestoGeneral: Math.round(presupuestoGeneral * 100) / 100,
+            presupuestoTotal: Math.round(presupuestoGeneral * 100) / 100,
             totalNotas,
-            promedioPresupuestoPorNota,
-            notasPorEstado,
+            promedioPorNota,
+            conteosPorEstado,
         },
     };
 }

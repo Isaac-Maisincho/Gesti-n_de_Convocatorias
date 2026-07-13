@@ -30,6 +30,8 @@
         <button class="nav-button" data-section="convocatorias">Convocatorias</button>
         <button class="nav-button" data-section="directores">Directores</button>
         <button class="nav-button" data-section="notas">Notas Conceptuales</button>
+        <button class="nav-button" data-section="cronograma">Cronograma</button>
+        <button class="nav-button" data-section="firmas">Firmas</button>
       </nav>
       <footer>
         <span>v1.1</span>
@@ -84,7 +86,24 @@
       <section class="section-panel hidden" id="panel-convocatorias">
         <div class="panel-header">
           <h2>Convocatorias</h2>
-          <span>Listado de convocatorias disponibles</span>
+          <span>Listado y creación de convocatorias institucionales</span>
+        </div>
+        <div class="panel-body form-card" id="convocatoria-form-card">
+          <h3>Registrar nueva convocatoria</h3>
+          <div class="field-grid">
+            <label class="form-field">
+              <span>Año</span>
+              <input type="number" id="convocatoria-year" min="2024" placeholder="2026" />
+            </label>
+            <label class="form-field">
+              <span>Estado</span>
+              <select id="convocatoria-status">
+                <option value="activa">Activa</option>
+                <option value="inactiva">Inactiva</option>
+              </select>
+            </label>
+          </div>
+          <button id="save-convocatoria" class="primary-button">Guardar Convocatoria</button>
         </div>
         <div class="list-card" id="convocatorias-list">Cargando convocatorias...</div>
       </section>
@@ -92,7 +111,25 @@
       <section class="section-panel hidden" id="panel-directores">
         <div class="panel-header">
           <h2>Directores</h2>
-          <span>Listado de directores registrados</span>
+          <span>Registro de responsables de notas conceptuales</span>
+        </div>
+        <div class="panel-body form-card" id="director-form-card">
+          <h3>Registrar director</h3>
+          <div class="field-grid">
+            <label class="form-field">
+              <span>Nombre</span>
+              <input type="text" id="director-name" placeholder="Nombre completo" />
+            </label>
+            <label class="form-field">
+              <span>Correo electrónico</span>
+              <input type="email" id="director-email" placeholder="correo@dominio.com" />
+            </label>
+            <label class="form-field">
+              <span>Teléfono celular</span>
+              <input type="tel" id="director-phone" placeholder="0991234567" />
+            </label>
+          </div>
+          <button id="save-director" class="primary-button">Guardar Director</button>
         </div>
         <div class="list-card" id="directores-list">Cargando directores...</div>
       </section>
@@ -100,9 +137,51 @@
       <section class="section-panel hidden" id="panel-notas">
         <div class="panel-header">
           <h2>Notas Conceptuales</h2>
-          <span>Detalle completo de las notas conceptuales</span>
+          <span>Registro y búsqueda de notas conceptuales</span>
+        </div>
+        <div class="panel-toolbar">
+          <div class="search-group">
+            <input id="search-code" type="text" placeholder="Buscar nota por código" />
+            <button id="search-button" class="secondary-button">Buscar</button>
+          </div>
+          <button id="open-note-form" class="secondary-button">Registrar Nota Conceptual</button>
         </div>
         <div class="list-card" id="notas-list">Cargando notas...</div>
+      </section>
+
+      <section class="section-panel hidden" id="panel-cronograma">
+        <div class="panel-header">
+          <h2>Cronograma de Ejecución</h2>
+          <span>Actividades, fechas y responsable con edición directa</span>
+        </div>
+        <div class="panel-body" id="cronograma-panel">Cargando cronograma...</div>
+      </section>
+
+      <section class="section-panel hidden" id="panel-firmas">
+        <div class="panel-header">
+          <h2>Firmas de Responsabilidad</h2>
+          <span>Responsables de la elaboración, revisión y aprobación</span>
+        </div>
+        <div class="panel-body" id="firmas-panel">
+          <div class="firmas-grid">
+            <article class="firma-card">
+              <strong>Elaborado por</strong>
+              <p>Dr. Isaac Maisincho</p>
+            </article>
+            <article class="firma-card">
+              <strong>Revisado por</strong>
+              <p>Dra. María Torres</p>
+            </article>
+            <article class="firma-card">
+              <strong>Supervisado por</strong>
+              <p>Ing. Silvia Vallejo</p>
+            </article>
+            <article class="firma-card">
+              <strong>Aprobado por</strong>
+              <p>Dra. Elsa Medina</p>
+            </article>
+          </div>
+        </div>
       </section>
     </main>
   </div>

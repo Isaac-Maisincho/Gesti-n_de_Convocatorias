@@ -3,7 +3,16 @@ import cors from 'cors';
 import path from 'path';
 import { crearConvocatoria, listarConvocatorias } from '@/servicios/convocatorias.service';
 import { registrarDirector, listarDirectores } from '@/servicios/directores.service';
-import { crearNota, listarNotas, obtenerNotaPorCodigo, cambiarEstadoNota, obtenerPresupuestoTotal } from '@/servicios/notas.service';
+import {
+  crearNota,
+  listarNotas,
+  obtenerNotaPorCodigo,
+  cambiarEstadoNota,
+  obtenerPresupuestoTotal,
+  agregarItemPresupuesto,
+  agregarActividadCronograma,
+  actualizarNotaParcial,
+} from '@/servicios/notas.service';
 import { obtenerPresupuestoGeneral } from '@/servicios/estadisticas.service';
 import catalogosData from '@/data/catalogos.json';
 import deptCarrerasData from '@/data/departamentos-carreras.json';
@@ -137,6 +146,54 @@ app.patch('/api/notas/:codigo/estado', (req, res) => {
       return res.status(400).json(resultado);
     }
     res.status(200).json(resultado);
+  } catch (err) {
+    res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
+  }
+});
+
+// ============================================================
+// /api/notas/:codigo
+// ============================================================
+app.patch('/api/notas/:codigo', (req, res) => {
+  try {
+    const { codigo } = req.params;
+    const resultado = actualizarNotaParcial(codigo, req.body);
+    if (!resultado.exito) {
+      return res.status(400).json(resultado);
+    }
+    res.status(200).json(resultado);
+  } catch (err) {
+    res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
+  }
+});
+
+// ============================================================
+// /api/notas/:codigo/presupuesto
+// ============================================================
+app.post('/api/notas/:codigo/presupuesto', (req, res) => {
+  try {
+    const { codigo } = req.params;
+    const resultado = agregarItemPresupuesto(codigo, req.body);
+    if (!resultado.exito) {
+      return res.status(400).json(resultado);
+    }
+    res.status(201).json(resultado);
+  } catch (err) {
+    res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
+  }
+});
+
+// ============================================================
+// /api/notas/:codigo/cronograma
+// ============================================================
+app.post('/api/notas/:codigo/cronograma', (req, res) => {
+  try {
+    const { codigo } = req.params;
+    const resultado = agregarActividadCronograma(codigo, req.body);
+    if (!resultado.exito) {
+      return res.status(400).json(resultado);
+    }
+    res.status(201).json(resultado);
   } catch (err) {
     res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
   }

@@ -18,6 +18,8 @@ import {
   calcularTotalItem,
   calcularPresupuestoTotal,
   paginar,
+  noVacio,
+  LIMITE_PRESUPUESTO_USD,
 } from '@/models/functions';
 import {
   validarNotaConceptual,
@@ -318,5 +320,80 @@ export function cambiarEstadoNota(
       estadoAnterior,
       estadoNuevo: nuevoEstado as EstadoNota,
     },
+  };
+}
+
+export function actualizarNotaParcial(
+  codigo: string,
+  datos: Partial<NotaConceptual>
+): RespuestaAPI<NotaConceptual> {
+  const nota = buscarNotaPorCodigo(codigo);
+  if (!nota) {
+    return {
+      exito: false,
+      mensaje: `No se encontró la nota con código "${codigo}".`,
+    };
+  }
+
+  const errores: string[] = [];
+
+  if (datos.nombreProyecto !== undefined && !noVacio(datos.nombreProyecto)) {
+    errores.push('El nombre del proyecto no debe estar vacío.');
+  }
+
+  if (datos.caracterizacionPoblacion) {
+    const { poblacionReferencia, poblacionObjetivo } = datos.caracterizacionPoblacion;
+    if (
+      typeof poblacionObjetivo === 'number' &&
+      typeof poblacionReferencia === 'number' &&
+      poblacionObjetivo > poblacionReferencia
+    ) {
+      errores.push('La Población Objetivo no puede ser mayor que la Población de Referencia.');
+    }
+  }
+
+  if (datos.presupuesto?.items) {
+    datos.presupuesto.items.forEach((item, i) => {
+      if (typeof item.cantidad !== 'number' || item.cantidad <= 0) {
+        errores.push(`Ítem presupuestario #${i + 1}: la cantidad debe ser mayor que cero.`);
+      }
+      if (typeof item.valorUnitario !== 'number' || item.valorUnitario < 0) {
+        errores.push(`Ítem presupuestario #${i + 1}: el valor unitario no puede ser negativo.`);
+      }
+    });
+
+    const total = calcularPresupuestoTotal(datos.presupuesto.items.map((item) => ({ total: calcularTotalItem(item.cantidad ?? 0, item.valorUnitario ?? 0) })));
+    if (total > LIMITE_PRESUPUESTO_USD) {
+      errores.push(
+        `El costo total del presupuesto (USD ${total.toFixed(2)}) supera el límite de USD ${LIMITE_PRESUPUESTO_USD.toLocaleString()}.`
+      );
+    }
+  }
+
+  if (datos.cronograma && datos.cronograma.length < 1) {
+    errores.push('La nota debe tener al menos una actividad registrada en su cronograma.');
+  }
+
+  if (datos.estado !== undefined) {
+    const estadoErrores = validarCambioEstado(datos.estado);
+    errores.push(...estadoErrores);
+  }
+
+  if (errores.length > 0) {
+    return { exito: false, mensaje: errores.join(' ') };
+  }
+
+  const actualizado = {
+    ...nota,
+    ...datos,
+    actualizadoEn: fechaActual(),
+  };
+
+  actualizarNota(codigo, actualizado);
+
+  return {
+    exito: true,
+    mensaje: `Nota "${codigo}" actualizada exitosamente.`,
+    datos: actualizado,
   };
 }

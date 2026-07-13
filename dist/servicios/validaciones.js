@@ -76,7 +76,7 @@ function validarNotaConceptual(datos) {
         });
     }
     // Mínimo de actividades en cronograma
-    if (datos.cronograma && datos.cronograma.length < 1) {
+    if (!datos.cronograma || datos.cronograma.length < 1) {
         errores.push('La nota debe tener al menos una actividad registrada en su cronograma.');
     }
     return errores;

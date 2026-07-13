@@ -10,6 +10,7 @@ exports.agregarItemPresupuesto = agregarItemPresupuesto;
 exports.agregarActividadCronograma = agregarActividadCronograma;
 exports.obtenerPresupuestoTotal = obtenerPresupuestoTotal;
 exports.cambiarEstadoNota = cambiarEstadoNota;
+exports.actualizarNotaParcial = actualizarNotaParcial;
 const functions_1 = require("../models/functions");
 const validaciones_1 = require("./validaciones");
 const almacenamiento_1 = require("./almacenamiento");
@@ -243,5 +244,61 @@ function cambiarEstadoNota(codigo, nuevoEstado) {
             estadoAnterior,
             estadoNuevo: nuevoEstado,
         },
+    };
+}
+function actualizarNotaParcial(codigo, datos) {
+    const nota = (0, almacenamiento_1.buscarNotaPorCodigo)(codigo);
+    if (!nota) {
+        return {
+            exito: false,
+            mensaje: `No se encontró la nota con código "${codigo}".`,
+        };
+    }
+    const errores = [];
+    if (datos.nombreProyecto !== undefined && !(0, functions_1.noVacio)(datos.nombreProyecto)) {
+        errores.push('El nombre del proyecto no debe estar vacío.');
+    }
+    if (datos.caracterizacionPoblacion) {
+        const { poblacionReferencia, poblacionObjetivo } = datos.caracterizacionPoblacion;
+        if (typeof poblacionObjetivo === 'number' &&
+            typeof poblacionReferencia === 'number' &&
+            poblacionObjetivo > poblacionReferencia) {
+            errores.push('La Población Objetivo no puede ser mayor que la Población de Referencia.');
+        }
+    }
+    if (datos.presupuesto?.items) {
+        datos.presupuesto.items.forEach((item, i) => {
+            if (typeof item.cantidad !== 'number' || item.cantidad <= 0) {
+                errores.push(`Ítem presupuestario #${i + 1}: la cantidad debe ser mayor que cero.`);
+            }
+            if (typeof item.valorUnitario !== 'number' || item.valorUnitario < 0) {
+                errores.push(`Ítem presupuestario #${i + 1}: el valor unitario no puede ser negativo.`);
+            }
+        });
+        const total = (0, functions_1.calcularPresupuestoTotal)(datos.presupuesto.items.map((item) => ({ total: (0, functions_1.calcularTotalItem)(item.cantidad ?? 0, item.valorUnitario ?? 0) })));
+        if (total > functions_1.LIMITE_PRESUPUESTO_USD) {
+            errores.push(`El costo total del presupuesto (USD ${total.toFixed(2)}) supera el límite de USD ${functions_1.LIMITE_PRESUPUESTO_USD.toLocaleString()}.`);
+        }
+    }
+    if (datos.cronograma && datos.cronograma.length < 1) {
+        errores.push('La nota debe tener al menos una actividad registrada en su cronograma.');
+    }
+    if (datos.estado !== undefined) {
+        const estadoErrores = (0, validaciones_1.validarCambioEstado)(datos.estado);
+        errores.push(...estadoErrores);
+    }
+    if (errores.length > 0) {
+        return { exito: false, mensaje: errores.join(' ') };
+    }
+    const actualizado = {
+        ...nota,
+        ...datos,
+        actualizadoEn: (0, functions_1.fechaActual)(),
+    };
+    (0, almacenamiento_1.actualizarNota)(codigo, actualizado);
+    return {
+        exito: true,
+        mensaje: `Nota "${codigo}" actualizada exitosamente.`,
+        datos: actualizado,
     };
 }
