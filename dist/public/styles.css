@@ -1,0 +1,51 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0c111a;
+  color: #e8edf5;
+}
+* { box-sizing: border-box; }
+body, html { margin: 0; padding: 0; min-height: 100%; background: #09101a; }
+button { font: inherit; }
+button, a { cursor: pointer; }
+.app-shell { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+.sidebar { padding: 32px 24px; background: #070c16; display: flex; flex-direction: column; gap: 32px; }
+.brand { display: flex; gap: 14px; align-items: center; }
+.brand-mark { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #7f5aff, #2c6df6); display: grid; place-items: center; font-weight: 800; font-size: 1.6rem; color: white; }
+.brand strong { display: block; font-size: 1.05rem; }
+.brand span { color: #8c98b3; font-size: 0.9rem; }
+.sidebar nav { display: grid; gap: 10px; }
+.nav-button { width: 100%; padding: 14px 16px; border: none; border-radius: 14px; background: #101828; color: #c9d2e8; text-align: left; transition: background 0.2s ease; }
+.nav-button:hover, .nav-button.active { background: #161f33; color: white; }
+.sidebar footer { margin-top: auto; color: #6f7b92; font-size: 0.88rem; display: grid; gap: 6px; }
+.main-content { padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+.page-header { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+.page-header .eyebrow { margin: 0 0 12px; color: #8c98b3; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.84rem; }
+.page-header h1 { margin: 0; font-size: clamp(2rem, 3vw, 2.8rem); line-height: 1.05; }
+.primary-button { border: none; border-radius: 999px; padding: 14px 20px; background: linear-gradient(135deg, #7f5aff, #37d4b8); color: #070b14; font-weight: 700; box-shadow: 0 18px 40px rgba(12,11,35,.18); }
+.section-cards { display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 18px; }
+.stat-card { padding: 24px; border-radius: 24px; background: #111827; box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+.stat-label { margin: 0 0 14px; color: #8c98b3; font-size: 0.95rem; }
+.stat-card h2 { margin: 0; font-size: 2rem; }
+.accent-green { background: linear-gradient(180deg, rgba(46, 185, 168, 0.16), rgba(17, 24, 39, 0.92)); }
+.accent-orange { background: linear-gradient(180deg, rgba(255, 158, 74, 0.16), rgba(17, 24, 39, 0.92)); }
+.section-panel { background: #0e1624; border-radius: 24px; padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+.panel-header { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+.panel-header h2 { margin: 0; font-size: 1.2rem; }
+.panel-header span { color: #8c98b3; }
+.table-wrapper { margin-top: 24px; overflow: auto; }
+.data-table { width: 100%; border-collapse: collapse; min-width: 740px; }
+.data-table th, .data-table td { padding: 18px 14px; text-align: left; font-size: 0.95rem; border-bottom: 1px solid #182139; }
+.data-table th { color: #8c98b3; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.78rem; }
+.data-table tbody tr:hover { background: rgba(255,255,255,.04); }
+.tag { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; font-size: 0.82rem; padding: 8px 12px; color: white; font-weight: 700; }
+.tag.registered { background: #3b82f6; }
+.tag.review { background: #f59e0b; }
+.tag.approved { background: #10b981; }
+.table-action { background: #111827; border: 1px solid #1f2937; border-radius: 12px; color: #cbd5e1; padding: 10px 14px; }
+.list-card { margin-top: 20px; display: grid; gap: 16px; }
+.list-item { padding: 18px 20px; border-radius: 18px; background: #111827; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; }
+.list-item strong { display: block; margin-bottom: 8px; }
+.list-item span { color: #94a3b8; font-size: 0.92rem; }
+.hidden { display: none; }
+@media (max-width: 1200px) { .app-shell { grid-template-columns: 1fr; } .sidebar { flex-direction: row; overflow-x: auto; padding: 20px; } .main-content { padding: 20px; } .section-cards { grid-template-columns: 1fr; } }
