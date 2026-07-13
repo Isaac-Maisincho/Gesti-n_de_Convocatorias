@@ -1,0 +1,133 @@
+[
+    {
+        "id": "prov-pichincha",
+        "nombre": "Pichincha",
+        "cantones": [
+            {
+                "id": "can-quito",
+                "nombre": "Quito",
+                "parroquias": [
+                    { "id": "par-centro-historico", "nombre": "Centro Histórico" },
+                    { "id": "par-la-mariscal", "nombre": "La Mariscal" },
+                    { "id": "par-cumbaya", "nombre": "Cumbayá" },
+                    { "id": "par-tumbaco", "nombre": "Tumbaco" },
+                    { "id": "par-calderon", "nombre": "Calderón" },
+                    { "id": "par-conocoto", "nombre": "Conocoto" },
+                    { "id": "par-sangolqui-quito", "nombre": "Sangolquí" }
+                ]
+            },
+            {
+                "id": "can-ruminahui",
+                "nombre": "Rumiñahui",
+                "parroquias": [
+                    { "id": "par-sangolqui", "nombre": "Sangolquí" },
+                    { "id": "par-san-pedro-taboada", "nombre": "San Pedro de Taboada" },
+                    { "id": "par-san-rafael", "nombre": "San Rafael" },
+                    { "id": "par-cotogchoa", "nombre": "Cotogchoa" },
+                    { "id": "par-rumipamba", "nombre": "Rumipamba" }
+                ]
+            },
+            {
+                "id": "can-mejia",
+                "nombre": "Mejía",
+                "parroquias": [
+                    { "id": "par-machachi", "nombre": "Machachi" },
+                    { "id": "par-aloasi", "nombre": "Aloasí" },
+                    { "id": "par-tambillo", "nombre": "Tambillo" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "prov-guayas",
+        "nombre": "Guayas",
+        "cantones": [
+            {
+                "id": "can-guayaquil",
+                "nombre": "Guayaquil",
+                "parroquias": [
+                    { "id": "par-tarqui", "nombre": "Tarqui" },
+                    { "id": "par-ximena", "nombre": "Ximena" },
+                    { "id": "par-pascuales", "nombre": "Pascuales" },
+                    { "id": "par-chongon", "nombre": "Chongón" }
+                ]
+            },
+            {
+                "id": "can-duran",
+                "nombre": "Durán",
+                "parroquias": [
+                    { "id": "par-eloy-alfaro", "nombre": "Eloy Alfaro" }
+                ]
+            },
+            {
+                "id": "can-samborondon",
+                "nombre": "Samborondón",
+                "parroquias": [
+                    { "id": "par-samborondon", "nombre": "Samborondón" },
+                    { "id": "par-tarifa", "nombre": "Tarifa" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "prov-azuay",
+        "nombre": "Azuay",
+        "cantones": [
+            {
+                "id": "can-cuenca",
+                "nombre": "Cuenca",
+                "parroquias": [
+                    { "id": "par-el-sagrario", "nombre": "El Sagrario" },
+                    { "id": "par-san-sebastian", "nombre": "San Sebastián" },
+                    { "id": "par-baños-cuenca", "nombre": "Baños" },
+                    { "id": "par-ricaurte", "nombre": "Ricaurte" }
+                ]
+            },
+            {
+                "id": "can-gualaceo",
+                "nombre": "Gualaceo",
+                "parroquias": [
+                    { "id": "par-gualaceo", "nombre": "Gualaceo" },
+                    { "id": "par-chordeleg", "nombre": "Chordeleg" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "prov-cotopaxi",
+        "nombre": "Cotopaxi",
+        "cantones": [
+            {
+                "id": "can-latacunga",
+                "nombre": "Latacunga",
+                "parroquias": [
+                    { "id": "par-la-matriz", "nombre": "La Matriz" },
+                    { "id": "par-eloy-alfaro-lat", "nombre": "Eloy Alfaro" },
+                    { "id": "par-san-buenaventura", "nombre": "San Buenaventura" }
+                ]
+            },
+            {
+                "id": "can-salcedo",
+                "nombre": "Salcedo",
+                "parroquias": [
+                    { "id": "par-san-miguel-salcedo", "nombre": "San Miguel de Salcedo" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "prov-santo-domingo",
+        "nombre": "Santo Domingo de los Tsáchilas",
+        "cantones": [
+            {
+                "id": "can-santo-domingo",
+                "nombre": "Santo Domingo",
+                "parroquias": [
+                    { "id": "par-santo-domingo", "nombre": "Santo Domingo de los Colorados" },
+                    { "id": "par-alluriquin", "nombre": "Alluriquín" },
+                    { "id": "par-luz-america", "nombre": "Luz de América" }
+                ]
+            }
+        ]
+    }
+]

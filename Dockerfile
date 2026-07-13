@@ -1,40 +1,32 @@
 # ==========================================
-# Dockerfile — Sistema de Gestión de Convocatorias
+# Dockerfile — Sistema de Gestión de Convocatorias (Node.js/Express puro)
 # ==========================================
 
-# Etapa 1: Instalar dependencias de producción
-FROM node:20-alpine AS deps
-RUN apk add --no-cache libc6-compat
+# Etapa 1: Construcción
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
-
-# Etapa 2: Construir la aplicación Next.js
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-ENV NEXT_TELEMETRY_DISABLED 1
 RUN npm run build
+# Aseguramos que los JSON de data y los activos públicos queden en dist
+RUN mkdir -p dist/data dist/public && cp -r src/data/* dist/data/ && cp -r src/public/* dist/public/
 
-# Etapa 3: Imagen de producción para el servidor
+# Etapa 2: Producción
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
 
-# Copiar archivos compilados y dependencias necesarias
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/package-lock.json ./package-lock.json
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/tsconfig.json ./tsconfig.json
+# Solo dependencias de producción
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
-EXPOSE 3000
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+# Copiar el build completo (incluye dist/data/*.json)
+COPY --from=builder /app/dist ./dist
 
-# Iniciar Next.js en producción
-CMD ["npm", "run", "start"]
+EXPOSE 8080
+ENV PORT=8080
+
+# Iniciar la aplicación
+CMD ["npm", "start"]

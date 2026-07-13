@@ -2,8 +2,6 @@
 # Docker Compose — Sistema de Gestión de Convocatorias
 # ==========================================
 
-version: '3.8'
-
 services:
   app:
     build:
@@ -12,7 +10,7 @@ services:
     container_name: gestion-convocatorias-app
     restart: always
     ports:
-      - "3000:3000"
+      - "8080:8080"
     environment:
-      - PORT=3000
+      - PORT=8080
       - NODE_ENV=production

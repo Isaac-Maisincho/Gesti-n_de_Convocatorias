@@ -1,0 +1,95 @@
+{
+    "ambitosPrioritarios": [
+        "Desarrollo sostenible",
+        "Innovación tecnológica",
+        "Salud y bienestar",
+        "Educación de calidad",
+        "Equidad de género",
+        "Medio ambiente y biodiversidad",
+        "Desarrollo rural",
+        "Gestión de riesgos",
+        "Soberanía alimentaria",
+        "Derechos humanos"
+    ],
+    "objetivosODS2030": [
+        "ODS 1 - Fin de la pobreza",
+        "ODS 2 - Hambre cero",
+        "ODS 3 - Salud y bienestar",
+        "ODS 4 - Educación de calidad",
+        "ODS 5 - Igualdad de género",
+        "ODS 6 - Agua limpia y saneamiento",
+        "ODS 7 - Energía asequible y no contaminante",
+        "ODS 8 - Trabajo decente y crecimiento económico",
+        "ODS 9 - Industria, innovación e infraestructura",
+        "ODS 10 - Reducción de las desigualdades",
+        "ODS 11 - Ciudades y comunidades sostenibles",
+        "ODS 12 - Producción y consumo responsables",
+        "ODS 13 - Acción por el clima",
+        "ODS 14 - Vida submarina",
+        "ODS 15 - Vida de ecosistemas terrestres",
+        "ODS 16 - Paz, justicia e instituciones sólidas",
+        "ODS 17 - Alianzas para lograr los objetivos"
+    ],
+    "camposCineUnesco": [
+        "00 - Programas generales",
+        "01 - Educación",
+        "02 - Artes y humanidades",
+        "03 - Ciencias sociales, periodismo e información",
+        "04 - Administración de empresas y derecho",
+        "05 - Ciencias naturales, matemáticas y estadística",
+        "06 - Tecnologías de la información y la comunicación (TIC)",
+        "07 - Ingeniería, industria y construcción",
+        "08 - Agricultura, silvicultura, pesca y veterinaria",
+        "09 - Salud y bienestar",
+        "10 - Servicios"
+    ],
+    "objetivosPND": [
+        "PND 1 - Garantizar una vida digna con iguales oportunidades",
+        "PND 2 - Afirmar la interculturalidad y plurinacionalidad",
+        "PND 3 - Garantizar los derechos de la naturaleza",
+        "PND 4 - Consolidar la sostenibilidad del sistema económico",
+        "PND 5 - Impulsar la productividad y competitividad",
+        "PND 6 - Desarrollar capacidades productivas del entorno",
+        "PND 7 - Incentivar una sociedad participativa",
+        "PND 8 - Promover la transparencia y la corresponsabilidad",
+        "PND 9 - Garantizar la soberanía y la paz"
+    ],
+    "objetivosGAD": [
+        "GAD 1 - Fortalecer el desarrollo local sostenible",
+        "GAD 2 - Promover la participación ciudadana",
+        "GAD 3 - Mejorar la infraestructura y servicios básicos",
+        "GAD 4 - Impulsar la producción local y el empleo",
+        "GAD 5 - Proteger el medio ambiente y los recursos naturales",
+        "GAD 6 - Fomentar la equidad social y territorial"
+    ],
+    "objetivosPlanEstrategico": [
+        "PE 1 - Fortalecer la formación académica integral",
+        "PE 2 - Impulsar la investigación científica y tecnológica",
+        "PE 3 - Consolidar la vinculación con la sociedad",
+        "PE 4 - Garantizar la gestión institucional eficiente",
+        "PE 5 - Promover la internacionalización",
+        "PE 6 - Fomentar la innovación y el emprendimiento"
+    ],
+    "lineasInvestigacion": [
+        "Tecnologías de la información y comunicación",
+        "Biotecnología y ciencias de la vida",
+        "Energías renovables y eficiencia energética",
+        "Desarrollo social y humano",
+        "Seguridad y defensa",
+        "Ciencias ambientales y sostenibilidad",
+        "Ingeniería y procesos industriales",
+        "Educación y pedagogía",
+        "Administración y economía",
+        "Salud pública y epidemiología"
+    ],
+    "dominioAcademico": [
+        "Ciencias de la computación e informática",
+        "Ciencias de la vida",
+        "Ingenierías y tecnología",
+        "Ciencias exactas y naturales",
+        "Ciencias humanas y sociales",
+        "Ciencias económicas y administrativas",
+        "Ciencias de la seguridad",
+        "Ciencias de la educación"
+    ]
+}

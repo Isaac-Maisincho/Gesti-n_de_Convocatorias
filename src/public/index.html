@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de Convocatorias</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">C</div>
+        <div>
+          <strong>Convocatorias</strong>
+          <span>Gestión Local Docker</span>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-button active" data-section="dashboard">Panel de Control</button>
+        <button class="nav-button" data-section="convocatorias">Convocatorias</button>
+        <button class="nav-button" data-section="directores">Directores</button>
+        <button class="nav-button" data-section="notas">Notas Conceptuales</button>
+      </nav>
+      <footer>
+        <span>v1.0</span>
+        <span>Servidor local Docker</span>
+      </footer>
+    </aside>
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Panel de Control</p>
+          <h1>Estadísticas clave de los proyectos</h1>
+        </div>
+        <button class="primary-button" id="new-note">+ Nueva Nota Conceptual</button>
+      </header>
+
+      <section class="section-cards" id="dashboard">
+        <article class="stat-card">
+          <p class="stat-label">Notas Registradas</p>
+          <h2 id="stat-notas">0</h2>
+        </article>
+        <article class="stat-card accent-green">
+          <p class="stat-label">Presupuesto Acumulado</p>
+          <h2 id="stat-presupuesto">$0</h2>
+        </article>
+        <article class="stat-card accent-orange">
+          <p class="stat-label">Promedio por Nota</p>
+          <h2 id="stat-promedio">$0</h2>
+        </article>
+      </section>
+
+      <section class="section-panel" id="panel-dashboard">
+        <div class="panel-header">
+          <h2>Notas Conceptuales Recientes</h2>
+          <span id="panel-summary">Cargando datos...</span>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Proyecto</th>
+                <th>Estado</th>
+                <th>Presupuesto</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="notes-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-panel hidden" id="panel-convocatorias">
+        <div class="panel-header">
+          <h2>Convocatorias</h2>
+          <span>Listado de convocatorias disponibles</span>
+        </div>
+        <div class="list-card" id="convocatorias-list">Cargando convocatorias...</div>
+      </section>
+
+      <section class="section-panel hidden" id="panel-directores">
+        <div class="panel-header">
+          <h2>Directores</h2>
+          <span>Listado de directores registrados</span>
+        </div>
+        <div class="list-card" id="directores-list">Cargando directores...</div>
+      </section>
+
+      <section class="section-panel hidden" id="panel-notas">
+        <div class="panel-header">
+          <h2>Notas Conceptuales</h2>
+          <span>Detalle completo de las notas conceptuales</span>
+        </div>
+        <div class="list-card" id="notas-list">Cargando notas...</div>
+      </section>
+    </main>
+  </div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
