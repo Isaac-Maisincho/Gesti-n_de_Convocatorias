@@ -42,8 +42,10 @@ app.post('/api/convocatorias', (req, res) => {
   try {
     const resultado = crearConvocatoria(req.body);
     if (!resultado.exito) {
+      console.warn(`[POST /api/convocatorias] Rechazado: ${resultado.mensaje}`);
       return res.status(400).json(resultado);
     }
+    console.log(`[POST /api/convocatorias] Guardado: ${resultado.mensaje}`);
     res.status(201).json(resultado);
   } catch (err) {
     res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
@@ -84,8 +86,10 @@ app.post('/api/directores', (req, res) => {
   try {
     const resultado = registrarDirector(req.body);
     if (!resultado.exito) {
+      console.warn(`[POST /api/directores] Rechazado: ${resultado.mensaje}`);
       return res.status(400).json(resultado);
     }
+    console.log(`[POST /api/directores] Guardado: ${resultado.mensaje}`);
     res.status(201).json(resultado);
   } catch (err) {
     res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
@@ -114,8 +118,10 @@ app.post('/api/notas', (req, res) => {
   try {
     const resultado = crearNota(req.body);
     if (!resultado.exito) {
+      console.warn(`[POST /api/notas] Rechazado: ${resultado.mensaje}`);
       return res.status(400).json(resultado);
     }
+    console.log(`[POST /api/notas] Guardado: ${resultado.mensaje}`);
     res.status(201).json(resultado);
   } catch (err) {
     res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
@@ -143,8 +149,10 @@ app.patch('/api/notas/:codigo/estado', (req, res) => {
     const { estado } = req.body;
     const resultado = cambiarEstadoNota(codigo, estado);
     if (!resultado.exito) {
+      console.warn(`[PATCH /api/notas/${codigo}/estado] Rechazado: ${resultado.mensaje}`);
       return res.status(400).json(resultado);
     }
+    console.log(`[PATCH /api/notas/${codigo}/estado] Guardado: ${resultado.mensaje}`);
     res.status(200).json(resultado);
   } catch (err) {
     res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });
@@ -159,8 +167,10 @@ app.patch('/api/notas/:codigo', (req, res) => {
     const { codigo } = req.params;
     const resultado = actualizarNotaParcial(codigo, req.body);
     if (!resultado.exito) {
+      console.warn(`[PATCH /api/notas/${codigo}] Rechazado: ${resultado.mensaje}`);
       return res.status(400).json(resultado);
     }
+    console.log(`[PATCH /api/notas/${codigo}] Guardado: ${resultado.mensaje}`);
     res.status(200).json(resultado);
   } catch (err) {
     res.status(400).json({ exito: false, mensaje: 'Error al procesar la solicitud. Verifique el formato JSON.' });

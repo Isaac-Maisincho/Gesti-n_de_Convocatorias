@@ -234,7 +234,8 @@ button, a { cursor: pointer; }
       gap: 16px;
     }
 
-    .budget-row {
+    .budget-row,
+    .schedule-row {
       background: #111827;
       border: 1px solid #1f2937;
       border-radius: 22px;
@@ -243,7 +244,8 @@ button, a { cursor: pointer; }
       gap: 14px;
     }
 
-    .budget-row .form-field {
+    .budget-row .form-field,
+    .schedule-row .form-field {
       margin-bottom: 0;
     }
 

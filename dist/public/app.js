@@ -756,7 +756,7 @@ async function openNoteForm() {
     }
     function addScheduleRow() {
         const wrapper = document.createElement('div');
-        wrapper.className = 'budget-row';
+        wrapper.className = 'schedule-row';
         wrapper.innerHTML = `
       <div class="field-grid">
         <label class="form-field"><span>Actividad</span><input type="text" class="schedule-description" placeholder="Descripción de la actividad" /></label>
@@ -768,7 +768,6 @@ async function openNoteForm() {
     `;
         const removeButton = wrapper.querySelector('.remove-row');
         removeButton.addEventListener('click', () => wrapper.remove());
-        wrapper.classList.add('schedule-row');
         const scheduleRows = document.getElementById('schedule-rows');
         scheduleRows?.appendChild(wrapper);
     }

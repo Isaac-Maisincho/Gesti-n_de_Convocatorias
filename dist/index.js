@@ -32,8 +32,10 @@ app.post('/api/convocatorias', (req, res) => {
     try {
         const resultado = (0, convocatorias_service_1.crearConvocatoria)(req.body);
         if (!resultado.exito) {
+            console.warn(`[POST /api/convocatorias] Rechazado: ${resultado.mensaje}`);
             return res.status(400).json(resultado);
         }
+        console.log(`[POST /api/convocatorias] Guardado: ${resultado.mensaje}`);
         res.status(201).json(resultado);
     }
     catch (err) {
@@ -71,8 +73,10 @@ app.post('/api/directores', (req, res) => {
     try {
         const resultado = (0, directores_service_1.registrarDirector)(req.body);
         if (!resultado.exito) {
+            console.warn(`[POST /api/directores] Rechazado: ${resultado.mensaje}`);
             return res.status(400).json(resultado);
         }
+        console.log(`[POST /api/directores] Guardado: ${resultado.mensaje}`);
         res.status(201).json(resultado);
     }
     catch (err) {
@@ -99,8 +103,10 @@ app.post('/api/notas', (req, res) => {
     try {
         const resultado = (0, notas_service_1.crearNota)(req.body);
         if (!resultado.exito) {
+            console.warn(`[POST /api/notas] Rechazado: ${resultado.mensaje}`);
             return res.status(400).json(resultado);
         }
+        console.log(`[POST /api/notas] Guardado: ${resultado.mensaje}`);
         res.status(201).json(resultado);
     }
     catch (err) {
@@ -127,8 +133,10 @@ app.patch('/api/notas/:codigo/estado', (req, res) => {
         const { estado } = req.body;
         const resultado = (0, notas_service_1.cambiarEstadoNota)(codigo, estado);
         if (!resultado.exito) {
+            console.warn(`[PATCH /api/notas/${codigo}/estado] Rechazado: ${resultado.mensaje}`);
             return res.status(400).json(resultado);
         }
+        console.log(`[PATCH /api/notas/${codigo}/estado] Guardado: ${resultado.mensaje}`);
         res.status(200).json(resultado);
     }
     catch (err) {
@@ -143,8 +151,10 @@ app.patch('/api/notas/:codigo', (req, res) => {
         const { codigo } = req.params;
         const resultado = (0, notas_service_1.actualizarNotaParcial)(codigo, req.body);
         if (!resultado.exito) {
+            console.warn(`[PATCH /api/notas/${codigo}] Rechazado: ${resultado.mensaje}`);
             return res.status(400).json(resultado);
         }
+        console.log(`[PATCH /api/notas/${codigo}] Guardado: ${resultado.mensaje}`);
         res.status(200).json(resultado);
     }
     catch (err) {
