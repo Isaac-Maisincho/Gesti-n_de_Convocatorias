@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "build": "tsc && tsc-alias && xcopy src\\public dist\\public /E /I /Y",
     "start": "node dist/index.js"
   },
   "dependencies": {

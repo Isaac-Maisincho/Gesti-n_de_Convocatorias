@@ -640,12 +640,17 @@ async function openNoteForm() {
     </div>
   `;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.body.classList.add('modal-open');
     const modal = document.getElementById('note-form-modal');
     const closeButton = modal?.querySelector('[data-close="modal"]');
-    closeButton?.addEventListener('click', () => modal?.remove());
+    const removeModal = () => {
+        modal?.remove();
+        document.body.classList.remove('modal-open');
+    };
+    closeButton?.addEventListener('click', removeModal);
     modal?.addEventListener('click', (event) => {
         if (event.target === modal)
-            modal.remove();
+            removeModal();
     });
     const convocatoriaSelect = document.getElementById('nota-convocatoria');
     const directorSelect = document.getElementById('nota-director');
@@ -763,6 +768,7 @@ async function openNoteForm() {
     `;
         const removeButton = wrapper.querySelector('.remove-row');
         removeButton.addEventListener('click', () => wrapper.remove());
+        wrapper.classList.add('schedule-row');
         const scheduleRows = document.getElementById('schedule-rows');
         scheduleRows?.appendChild(wrapper);
     }
@@ -812,7 +818,7 @@ async function openNoteForm() {
             const total = Math.round(cantidad * valorUnitario * 100) / 100;
             return { id: createId(), descripcion, cantidad, valorUnitario, total };
         });
-        const cronograma = Array.from(document.querySelectorAll('.budget-row')).filter((row) => row.querySelector('.schedule-description')).map((row) => {
+        const cronograma = Array.from(document.querySelectorAll('.schedule-row')).map((row) => {
             const descripcion = row.querySelector('.schedule-description').value.trim();
             const fechaInicio = row.querySelector('.schedule-start').value;
             const fechaFin = row.querySelector('.schedule-end').value;
@@ -892,6 +898,63 @@ searchCodeInput?.addEventListener('keypress', (event) => {
 });
 openNoteFormButton?.addEventListener('click', openNoteForm);
 newNoteButton?.addEventListener('click', openNoteForm);
+const saveConvocatoriaButton = document.getElementById('save-convocatoria');
+const saveDirectorButton = document.getElementById('save-director');
+async function saveConvocatoria() {
+    const yearInput = document.getElementById('convocatoria-year');
+    const statusSelect = document.getElementById('convocatoria-status');
+    const anio = Number(yearInput.value);
+    const estado = statusSelect.value;
+    if (!anio || anio < 2020) {
+        showNotification('Ingrese un año válido para la convocatoria.', 'error');
+        return;
+    }
+    const result = await postJson('/api/convocatorias', { anio, estado });
+    if (!result)
+        return;
+    if (!result.exito) {
+        showNotification(result.mensaje, 'error');
+        return;
+    }
+    showNotification('Convocatoria registrada correctamente.', 'success');
+    yearInput.value = '';
+    statusSelect.value = 'activa';
+    refreshConvocatorias();
+}
+async function saveDirector() {
+    const nameInput = document.getElementById('director-name');
+    const emailInput = document.getElementById('director-email');
+    const phoneInput = document.getElementById('director-phone');
+    const nombre = nameInput.value.trim();
+    const correo = emailInput.value.trim();
+    const telefono = phoneInput.value.trim();
+    if (!nombre) {
+        showNotification('El nombre del director es obligatorio.', 'error');
+        return;
+    }
+    if (!correo.includes('@')) {
+        showNotification('El correo debe contener @.', 'error');
+        return;
+    }
+    if (!telefono) {
+        showNotification('El teléfono del director es obligatorio.', 'error');
+        return;
+    }
+    const result = await postJson('/api/directores', { nombre, correo, telefono });
+    if (!result)
+        return;
+    if (!result.exito) {
+        showNotification(result.mensaje, 'error');
+        return;
+    }
+    showNotification('Director registrado correctamente.', 'success');
+    nameInput.value = '';
+    emailInput.value = '';
+    phoneInput.value = '';
+    refreshDirectores();
+}
+saveConvocatoriaButton?.addEventListener('click', saveConvocatoria);
+saveDirectorButton?.addEventListener('click', saveDirector);
 // ============================================================
 // Initialize
 // ============================================================
