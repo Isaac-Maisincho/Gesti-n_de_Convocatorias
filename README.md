@@ -30,8 +30,15 @@ docker compose up --build
 3. Abre el navegador en `http://localhost:8080`.
 
 4. Docker Hub
-
-
+```
+https://hub.docker.com/repository/docker/skrisaac/gestion/general
+```
+```
+docker pull skrisaac/gestion:v1.0
+```
+```
+docker run -d -p 3000:3000 --name app-gestion skrisaac/gestion:v1.0
+```
 ## Notas
 - El frontend se sirve como archivos estáticos desde `src/public/`.
 - La lógica de negocio y validaciones están en `src/servicios/`.

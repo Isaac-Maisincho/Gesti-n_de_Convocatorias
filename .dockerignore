@@ -12,5 +12,3 @@ docker-compose.yml
 .dockerignore
 npm-debug.log
 README.md
-CLAUDE.md
-AGENTS.md
