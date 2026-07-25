@@ -1,44 +1,115 @@
-# Sistema de Gestión de Convocatorias de Notas Conceptuales
+# Sistema de Gestión de Convocatoria de Notas Conceptuales
 
-## Objetivo
-Este proyecto es un sistema sencillo en TypeScript para gestionar convocatorias de notas conceptuales. Permite crear y editar notas conceptuales, administrar presupuestos y cronogramas, y consultar el estado de las propuestas.
+Sistema web para registrar y administrar **notas conceptuales** orientadas a
+sostenibilidad territorial e impacto social, dentro de convocatorias
+institucionales. El formulario de registro de una nota conceptual sigue la
+estructura del **Anexo 1** de la convocatoria institucional (ver
+[`docs/anexo1.md`](docs/anexo1.md) para el detalle de la correspondencia
+campo por campo).
 
-## Organización de carpetas
-- `src/`
-  - `index.ts` - servidor y rutas API.
-  - `data/` - archivos JSON con catálogos, departamentos/carreras y ubicaciones.
-  - `models/` - interfaces y funciones de negocio.
-  - `public/` - frontend estático:
-    - `app.ts` - lógica del cliente.
-    - `index.html` - UI principal.
-    - `styles.css` - estilos de la aplicación.
-  - `servicios/` - servicios del backend y validaciones.
+## Tecnología
 
-## Comandos
-- `npm install` - instala las dependencias.
-- `npm run build` - compila TypeScript y genera los archivos de salida.
-- `docker compose up --build` - construye y levanta el proyecto en contenedores.
+- **Next.js 16** (App Router) + **React** + **TypeScript**
+- **Tailwind CSS 4** para los estilos
+- **Zod** para las validaciones (esquemas compartidos entre el formulario y
+  la API)
+- Persistencia en **archivos JSON** en `data/`, leídos y escritos desde
+  Route Handlers de Next.js (`app/api/**`) — sin base de datos externa, por
+  ser un proyecto académico
+- Sin autenticación (no requerida por el enunciado)
 
-## Ejecución con Docker
-1. Asegúrate de estar en la carpeta del proyecto.
-2. Ejecuta:
+## Estructura del proyecto
+
+```
+app/
+  page.tsx                    Panel general (dashboard)
+  convocatorias/page.tsx      Listar y crear convocatorias
+  directores/page.tsx         Listar y registrar directores
+  notas/page.tsx              Listar notas, buscar por código, filtrar
+  notas/nueva/page.tsx        Registrar nota conceptual (formulario Anexo 1)
+  notas/[id]/page.tsx         Detalle de una nota y cambio de estado
+  api/convocatorias/          Route Handlers: GET, POST
+  api/directores/             Route Handlers: GET, POST
+  api/notas/                  Route Handlers: GET (filtros), POST
+  api/notas/[id]/             Route Handler: GET
+  api/notas/[id]/estado/      Route Handler: PATCH (cambiar estado)
+  api/resumen/                Route Handler: GET (totales del panel)
+components/
+  ui.tsx                      Componentes base (Button, Input, Select, ...)
+  NavBar.tsx                  Barra de navegación
+  forms/                      Formularios cliente (crean/mutan datos)
+lib/
+  types.ts                    Modelo de datos (TypeScript)
+  validations.ts              Esquemas Zod + reglas de negocio
+  db.ts                       Lectura/escritura de los archivos JSON
+  repositories/                CRUD, cálculo de totales, generación de código
+data/
+  convocatorias.json, directores.json, notas.json   Almacenamiento persistente
+docs/
+  anexo1.md                   Correspondencia entre el Anexo 1 y el sistema
+  screenshots/                Capturas de ejecución
+```
+
+Las páginas de listado y detalle son **Server Components** que leen los
+datos directamente de `lib/repositories`; los formularios de creación y
+cambio de estado son **Client Components** que llaman a la API (`app/api/**`)
+y refrescan la vista al terminar.
+
+## Cómo ejecutar el proyecto
 
 ```bash
-docker compose up --build
+npm install
+npm run dev
 ```
 
-3. Abre el navegador en `http://localhost:8080`.
+Abrir [http://localhost:3000](http://localhost:3000).
 
-4. Docker Hub
+Otros comandos:
+
+```bash
+npm run build   # build de producción
+npm start       # sirve el build de producción (después de "npm run build")
+npm run lint    # ESLint
 ```
-https://hub.docker.com/repository/docker/skrisaac/gestion/general
-```
-```
-docker pull skrisaac/gestion:v1.0
-```
-```
-docker run -d -p 3000:3000 --name app-gestion skrisaac/gestion:v1.0
-```
-## Notas
-- El frontend se sirve como archivos estáticos desde `src/public/`.
-- La lógica de negocio y validaciones están en `src/servicios/`.
+
+> **Nota:** los scripts `dev` y `build` usan `next ... --webpack` en lugar
+> del bundler Turbopack (por defecto en Next.js 16). Esto es necesario
+> porque Turbopack falla al compilar cuando la ruta del proyecto contiene
+> caracteres acentuados (como "Gestión"); con `--webpack` el proyecto
+> compila sin problema.
+
+## Funcionalidades implementadas
+
+- Crear convocatorias (`/convocatorias`)
+- Registrar directores (`/directores`)
+- Registrar notas conceptuales con las 6 secciones del Anexo 1
+  (`/notas/nueva`)
+- Agregar ítems de presupuesto y actividades de cronograma de forma
+  dinámica (agregar/quitar filas) dentro del formulario de la nota
+- Cálculo automático del presupuesto total por nota
+- Cambiar el estado de una nota: `registrada` → `en_revision` → `aprobada`
+  / `rechazada` (`/notas/[id]`)
+- Listar notas conceptuales, con búsqueda por código y filtros por estado
+  y convocatoria (`/notas`)
+- Cálculo del presupuesto general solicitado (suma de todas las notas),
+  visible en el panel general (`/`)
+
+## Validaciones implementadas
+
+Todas centralizadas en `lib/validations.ts` (Zod) y aplicadas tanto en los
+formularios como en los Route Handlers:
+
+- El nombre/título de la nota conceptual no puede estar vacío
+- El correo del director debe contener `@`
+- La población objetivo no puede ser mayor que la población de referencia
+- El presupuesto total de una nota no puede superar los USD 20 000
+- La cantidad de cada ítem de presupuesto debe ser mayor que cero
+- El valor unitario de cada ítem no puede ser negativo
+- Cada nota debe tener al menos una actividad registrada en el cronograma
+
+## Capturas de ejecución
+
+Ver [`docs/screenshots/`](docs/screenshots/) — incluyen el panel general,
+la creación de convocatorias y directores, los mensajes de validación en
+pantalla, el formulario de registro de una nota conceptual, el detalle de
+una nota creada y la búsqueda por código.
