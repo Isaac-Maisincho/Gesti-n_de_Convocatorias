@@ -72,11 +72,34 @@ npm start       # sirve el build de producción (después de "npm run build")
 npm run lint    # ESLint
 ```
 
+
 > **Nota:** los scripts `dev` y `build` usan `next ... --webpack` en lugar
 > del bundler Turbopack (por defecto en Next.js 16). Esto es necesario
 > porque Turbopack falla al compilar cuando la ruta del proyecto contiene
 > caracteres acentuados (como "Gestión"); con `--webpack` el proyecto
 > compila sin problema.
+
+## Despliegue con Docker
+
+El proyecto incluye un `Dockerfile` optimizado utilizando *multi-stage builds* con Node.js 20 sobre Alpine Linux para servir la aplicación de Next.js en producción.
+
+### 1. Descargar la imagen (Pull)
+Puedes descargarla directamente ejecutando:
+
+```bash
+sudo docker pull branpazmino/notas-conceptuales:latest
+```
+
+### 2. Ejecutar el contenedor (Run) Con persistencia de datos
+Esta opción monta la carpeta `data/` de tu máquina local en el contenedor. Así, todos los cambios que realices se guardarán directamente en tu disco local y no se perderán si detienes o eliminas el contenedor.
+
+```bash
+sudo docker run -d \
+  -p 3000:3000 \
+  --name notas-conceptuales \
+  -v $(pwd)/data:/app/data \
+  branpazmino/notas-conceptuales:latest
+```
 
 ## Funcionalidades implementadas
 
