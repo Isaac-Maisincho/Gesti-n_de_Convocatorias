@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "nombre": "Salticas",
+    "fechaApertura": "2026-07-25",
+    "fechaCierre": "2026-07-26",
+    "estado": "abierta",
+    "descripcion": "",
+    "id": "52e80237-dc78-46f0-8819-fa7a3ebdb032",
+    "creadaEn": "2026-07-26T00:21:00.739Z"
+  }
+]

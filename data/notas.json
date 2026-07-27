@@ -1,1 +1,96 @@
-[]
+[
+  {
+    "titulo": "Salticas - P",
+    "convocatoriaId": "52e80237-dc78-46f0-8819-fa7a3ebdb032",
+    "directorId": "16dcaadd-dca0-46c2-9ac3-f6b875740fcc",
+    "sedeUnidadAcademica": "URC Guayaquil",
+    "departamento": "dep-ciencias-vida",
+    "fechaRegistro": "2026-07-26",
+    "plazoInicio": "2026-07-18",
+    "plazoFin": "2026-07-31",
+    "resumen": "Presupuesto",
+    "localizacion": {
+      "cobertura": "Internacional",
+      "provincia": "prov-guayas",
+      "canton": "can-duran",
+      "parroquia": "par-eloy-alfaro",
+      "detalleUbicacion": "Junto a la ardilla"
+    },
+    "sectorPoblacion": {
+      "urbanoMarginal": false,
+      "rural": true,
+      "grupoAtencionPrioritaria": false
+    },
+    "alineamiento": {
+      "ambitosPrioritarios": [
+        "Equidad de género",
+        "Educación de calidad",
+        "Medio ambiente y biodiversidad",
+        "Desarrollo rural"
+      ],
+      "objetivosODS2030": [
+        "ODS 3 - Salud y bienestar",
+        "ODS 2 - Hambre cero"
+      ],
+      "camposCineUnesco": [
+        "08 - Agricultura, silvicultura, pesca y veterinaria"
+      ],
+      "objetivosPND": [],
+      "objetivosGAD": [],
+      "objetivosPlanEstrategico": [],
+      "lineasInvestigacion": [],
+      "dominioAcademico": []
+    },
+    "departamentosParticipantes": [
+      "dep-ciencias-vida"
+    ],
+    "carrerasParticipantes": [
+      "car-alimentos",
+      "car-ambiental"
+    ],
+    "impactosEsperados": {
+      "economico": "S",
+      "social": "",
+      "politico": "",
+      "cientifico": "",
+      "ambiental": "",
+      "otros": ""
+    },
+    "caracterizacionPoblacion": {
+      "poblacionReferencia": 400,
+      "poblacionPotencial": 20,
+      "poblacionObjetivo": 30,
+      "descripcion": ""
+    },
+    "itemsPresupuesto": [
+      {
+        "descripcion": "Harinas",
+        "cantidad": 400,
+        "valorUnitario": 1.833,
+        "id": "c4ff54da-0c9e-4199-9232-5ba000ec7196"
+      }
+    ],
+    "aporteEntidadAuspiciante": 0,
+    "actividades": [
+      {
+        "nombre": "Reunion Auspiciantes",
+        "fechaInicio": "2026-07-30",
+        "fechaFin": "2026-07-31",
+        "responsable": "Presidente",
+        "id": "3374957f-395b-42bd-ba38-7265b6e09b59"
+      }
+    ],
+    "firmas": {
+      "directorNota": "Presidente",
+      "directorCarrera": "",
+      "coordinadorVinculacion": "",
+      "directorDepartamento": "",
+      "fechaFirma": "2026-07-26"
+    },
+    "id": "bf0b789f-ceb8-4416-9319-bb1fc18eb250",
+    "codigo": "NC-2026-0001",
+    "estado": "en_revision",
+    "creadaEn": "2026-07-26T00:26:01.143Z",
+    "actualizadaEn": "2026-07-26T00:26:47.595Z"
+  }
+]
